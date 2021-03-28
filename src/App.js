@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
 import SearchBar from './components/searchBar/SearchBar';
 import TabBarMenu from './components/tabBarMenu/TabBarMenu';
@@ -11,15 +11,23 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState('');
 
+  useEffect(() => {
+    // 1. we definieren de functie
   const fetchData = async () =>  {
     try {
-      const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=utrecht,nl&appid=${apiKey}&lang=nl`);
+      const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location},nl&appid=${apiKey}&lang=nl`);
       setWeatherData(result.data);
       // console.log(result.data) to see where to find the info in the object
     } catch (e) {
       console.error(e);
     }
   }
+    // 2. we roepen de functie aan als location is veranderd, maar niet null is
+    if (location) {
+      fetchData();
+    }
+  }, [location]);
+
   return (
     <>
       <div className="weather-container">
@@ -41,12 +49,11 @@ function App() {
             </> //* place extra fragments <> </> bc there are 3 elements en you can only retrun ONE element a time
             }
 
-            <button
-                type="button"
-                onClick={fetchData}
-            >
-              Haal data op!
-            </button>
+            {/*<button*/}
+            {/*    type="button"*/}
+            {/*    onClick={fetchData}>*/}
+            {/*  Haal data op!*/}
+            {/*</button>*/}
           </span>
         </div>
 
