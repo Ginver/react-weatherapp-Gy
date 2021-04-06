@@ -14,7 +14,7 @@ import './App.css';
 import TodayTab from './pages/todayTab/TodayTab';
 
 // LET OP: VOEG HIER JOUW API KEY IN
-const apiKey = '050ff8be31f74868842b18a0e5465d77';
+// const apiKey = '050ff8be31f74868842b18a0e5465d77';
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -28,7 +28,7 @@ function App() {
       toggleLoading(true);
 
       try {
-        const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location},nl&appid=${apiKey}&lang=nl`);
+        const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location},nl&appid=${process.env.REACT_APP_API_KEY}&lang=nl`);
         setWeatherData(result.data);
         toggleLoading(false);
       } catch (e) {

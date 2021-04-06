@@ -5,7 +5,7 @@ import createDateString from '../../helpers/createDateString';
 import './ForecastTab.css';
 
 // LET OP: VOEG HIER JOUW API KEY IN
-const apiKey = '050ff8be31f74868842b18a0e5465d77';
+// const apiKey = '050ff8be31f74868842b18a0e5465d77';
 
 function ForecastTab({ coordinates }) {
     const [forecasts, setForecasts] = useState(null);
@@ -18,7 +18,7 @@ function ForecastTab({ coordinates }) {
             toggleLoading(true);
 
             try {
-                const result = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates?.lat}&lon=${coordinates?.lon}&exclude=minutely,current,hourly&appid=${apiKey}&lang=nl`);
+                const result = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates?.lat}&lon=${coordinates?.lon}&exclude=minutely,current,hourly&appid=${process.env.REACT_APP_API_KEY}&lang=nl`);
                 setForecasts(result.data.daily.slice(1, 6));
                 toggleLoading(false);
             } catch (e) {
