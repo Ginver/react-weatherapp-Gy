@@ -9,6 +9,7 @@ const apiKey = '050ff8be31f74868842b18a0e5465d77';
 function ForecastTab({ coordinates }) {
     const [forecasts, setForecasts] = useState(null);
     const [error, setError] = useState(false);
+    const [loading, toggleLoading] = useState(false);
 
     function createDateString(timestamp) {
         const day = new Date(timestamp * 1000);
@@ -18,6 +19,7 @@ function ForecastTab({ coordinates }) {
     useEffect(() => {
         async function fetchData() {
             setError(false);
+            toggleLoading(true);
 
             try {
                 const result = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates?.lat}&lon=${coordinates?.lon}&exclude=minutely,current,hourly&appid=${apiKey}&lang=nl`);
@@ -26,6 +28,7 @@ function ForecastTab({ coordinates }) {
                 console.error(e);
                 setError(true);
             }
+            toggleLoading(false);
         }
 
         if (coordinates) {
@@ -36,7 +39,6 @@ function ForecastTab({ coordinates }) {
 
     return (
         <div className="tab-wrapper">
-
 
             {forecasts && forecasts.map((forecast) => {
                 return (
@@ -68,7 +70,7 @@ function ForecastTab({ coordinates }) {
                 </span>
             )}
 
-
+            {loading && (<span>Loading...</span>)}
 
         </div>
     );
