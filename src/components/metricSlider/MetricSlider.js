@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './MetricSlider.css';
+import { TempContext } from "../../context/TempProvider";
 
 const MetricSlider = () => {
+    const [checked, toggleChecked] = useState(false);
+    const { toggleTemp } = useContext(TempContext);
+
+
+    useEffect(() => {
+        toggleTemp();
+    }, [checked]);
+// console.log(toggleTemp)
+
   return (
     <div className="weather-container-extention">
-      Weergeven in
 
+        <input
+            type="checkbox"
+            className="switch"
+            id="metric-system"
+            checked={checked}
+            onChange={() => toggleChecked(!checked)}
+        />
+
+        Weergeven in
       <p className="switch-label">
         C &deg;
       </p>

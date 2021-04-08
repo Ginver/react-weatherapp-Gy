@@ -12,7 +12,7 @@ function SearchBar({ setLocationHandler }) {
         if (e.keyCode === 13) {
             setLocationHandler(query);
         }
-    };
+    }; // als je dus op enter drukt wordt de request uitgevoerd
 
     return (
         <span className="searchbar">
@@ -21,7 +21,7 @@ function SearchBar({ setLocationHandler }) {
           name="search"
           value={query}
           onKeyDown={keyPressCheck}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)} //als we er iets in willen typen en de input dus veranderen
           placeholder="Zoek een stad in Nederland"
       />
       <button

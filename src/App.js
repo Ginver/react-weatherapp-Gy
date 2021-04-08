@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -12,6 +12,7 @@ import ForecastTab from './pages/forecastTab/ForecastTab';
 import kelvinToCelcius from './helpers/kelvinToCelcius';
 import './App.css';
 import TodayTab from './pages/todayTab/TodayTab';
+import {TempContext} from "./context/TempProvider";
 
 // LET OP: VOEG HIER JOUW API KEY IN
 // const apiKey = '050ff8be31f74868842b18a0e5465d77';
@@ -21,6 +22,8 @@ function App() {
   const [location, setLocation] = useState('');
   const [error, setError] = useState(false);
   const [loading, toggleLoading] = useState(false);
+
+  const { kelvinToMetric } = useContext(TempContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +36,7 @@ function App() {
         toggleLoading(false);
       } catch (e) {
         console.error(e);
-        setError(true);
+        setError(e.response.data.message);
         toggleLoading(false);
       }
     }
@@ -51,6 +54,7 @@ function App() {
           {/*HEADER -------------------- */}
           <div className="weather-header">
             <SearchBar setLocationHandler={setLocation}/>
+            {/*passing props down, name> setLocationHandles, value>setLocation*/}
 
             {error && (
                 <span className="wrong-location-error">
@@ -65,7 +69,7 @@ function App() {
               <>
                 <h2>{weatherData.weather[0].description}</h2>
                 <h3>{weatherData.name}</h3>
-                <h1>{kelvinToCelcius(weatherData.main.temp)}</h1>
+                <h1>{kelvinToMetric(weatherData.main.temp)}</h1>
               </>
               }
           </span>
