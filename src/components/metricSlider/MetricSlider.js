@@ -3,7 +3,7 @@ import './MetricSlider.css';
 import { TempContext } from "../../context/TempProvider";
 
 const MetricSlider = () => {
-    const [checked, toggleChecked] = useState(false);
+    const [checked, toggleChecked] = useState(true);
     const { toggleTemp } = useContext(TempContext);
 
 
@@ -15,24 +15,18 @@ const MetricSlider = () => {
   return (
     <div className="weather-container-extention">
 
+        Weergeven in
+        <p className="switch-label">
+            C &deg;
+        </p>
+
+      <span className="switch-wrapper">
         <input
             type="checkbox"
             className="switch"
             id="metric-system"
             checked={checked}
-            onChange={() => toggleChecked(!checked)}
-        />
-
-        Weergeven in
-      <p className="switch-label">
-        C &deg;
-      </p>
-
-      <span className="switch-wrapper">
-        <input
-          type="checkbox"
-          className="switch"
-          id="metric-system"
+            onClick={() => toggleChecked(!checked)}
         />
 
         <label
@@ -44,6 +38,7 @@ const MetricSlider = () => {
       <p className="switch-label">
         &deg; F
       </p>
+
     </div>
   );
 };

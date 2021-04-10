@@ -1,5 +1,5 @@
 import React, {useState, createContext} from 'react';
-import kelvinToCelcius from "../helpers/kelvinToCelcius";
+import kelvinToCelsius from "../helpers/kelvinToCelcius";
 import kelvinToFahrenheit from "../helpers/kelvinToFahrenheit";
 
 
@@ -21,7 +21,8 @@ function TempContextProvider({children}) {
     return (
         <TempContext.Provider value={{
             toggleTemp: toggleTemp,
-            kelvinToMetric: selectedMetric === 'celsius' ? kelvinToCelcius : kelvinToFahrenheit
+            // kelvinToMetric: selectedMetric === 'celsius' ? kelvinToCelcius : kelvinToFahrenheit
+            kelvinToMetric: selectedMetric === 'celsius' ? kelvinToFahrenheit : kelvinToCelsius,
         }}>
             {children}
         </TempContext.Provider>
